@@ -1,4 +1,5 @@
- 
+def main(): 
+   FF()
 def FF():
    e= 0
    while(e!=1):
@@ -13,6 +14,6 @@ def FF():
       elif(M < 60 and M >= 0):
          if(H < 24 and H >= 0 and M <60 and M >= 0):
             print(f"You entered {H} Hours and {M} Minutes")
-FF()
+main()        
 
  
