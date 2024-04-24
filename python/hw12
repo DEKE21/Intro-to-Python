@@ -1,0 +1,19 @@
+class Shape:
+    def area(self):
+        pass
+class Tri(Shape):
+    def __init__ (self,base,height):
+        self.base = base
+        self.height = height
+    def area(self):
+        return 0.5 * self.base * self.height
+class Sqr(Shape):
+    def __init__ (self,side):
+        self.side = side
+    def area(self):
+        return self.side**2
+areasqr = Sqr(3)
+areatri = Tri(5,7)
+print(f"the area of the square is {areasqr.area()}")
+print(f"the area of the triangle is {areatri.area()}")
+

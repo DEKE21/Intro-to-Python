@@ -1,5 +1,5 @@
 #opens the text file and default assigns the object as read only
-file = open("python\\hw11text.txt")
+file = open("C:\\Users\\deket\\Desktop\\hw11text.txt")
 #reads lines from file and splits them into a list
 words = file.readline().split(' ')
 #conversion in a set which removes duplicates and leaves unique words
