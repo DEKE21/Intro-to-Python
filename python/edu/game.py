@@ -12,9 +12,12 @@ mouse.get_cursor
 nb = pygame.Rect(400,400,50,50)
 spr = pygame.sprite.Group()
 pressed = False    
+ina = pygame.draw.circle(screen,"yellow",(300,200),50,50,True,True,True,True)
+image_sprite = [ina]
 
 while running:
     # poll for events
+    clock.tick(30)
     pos = mouse.get_pos()
     if(pos >= (300,300) and pos <= (500,500) and mouse.get_pressed()==(True,False,False)):
         print('you hit it')
@@ -32,13 +35,13 @@ while running:
     pygame.draw.circle(screen,"yellow",(500,300),50,50,True,True,True,True)
     
     if pressed:
+        image = image_sprite[0]
         y=300
         screen.fill("white")
-   
-        pygame.time.delay(1500)
-        screen.fill("white")
-        pygame.draw.circle(screen,"yellow",(500,50),50,50,True,True,True,True)
-        pygame.time.delay(1500)
+        screen.blit(x,(300,200))
+        
+ 
+        
 
     # flip() the display to put your work on screen
     pygame.display.flip()
