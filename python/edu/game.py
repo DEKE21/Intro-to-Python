@@ -1,9 +1,9 @@
 import pygame
-import pygame.camera
+import random
 # pygame setup
 pygame.init()
 size = pygame.display.get_desktop_sizes()
- 
+img = open("python\\red.png","r")
 screen = pygame.display.set_mode((1000,600))
 clock = pygame.time.Clock()
 running = True
@@ -11,13 +11,16 @@ mouse = pygame.mouse
 mouse.get_cursor
 nb = pygame.Rect(400,400,50,50)
 spr = pygame.sprite.Group()
+
 pressed = False    
-ina = pygame.draw.circle(screen,"yellow",(300,200),50,50,True,True,True,True)
-image_sprite = [ina]
+
+
+ims = pygame.image.load('python\\red.png').convert_alpha()
+image_sprite = [ims,ims,ims,ims]
+image = image_sprite[0]
 
 while running:
     # poll for events
-    clock.tick(30)
     pos = mouse.get_pos()
     if(pos >= (300,300) and pos <= (500,500) and mouse.get_pressed()==(True,False,False)):
         print('you hit it')
@@ -28,17 +31,26 @@ while running:
             running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("white")
-    x = pygame.surface.Surface((4,4),10)
+    screen.fill("black")
+    x = pygame.surface.Surface((100,200),10)
     # RENDER YOUR GAME HERE
-    pygame.draw.lines(screen,"blue",True,[(0,5),(888,5)],1)
+    spr.draw(screen)
+
+   
+
     pygame.draw.circle(screen,"yellow",(500,300),50,50,True,True,True,True)
-    
+    y=300
+  
+
     if pressed:
-        image = image_sprite[0]
-        y=300
-        screen.fill("white")
-        screen.blit(x,(300,200))
+        pygame.display.update()
+ 
+       
+    
+        x=300
+        screen.blit(image,(x,y))
+
+         
         
  
         
@@ -46,6 +58,6 @@ while running:
     # flip() the display to put your work on screen
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+  #  clock.tick(0)  # limits FPS to 60
 
 pygame.quit()

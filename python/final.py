@@ -1,5 +1,5 @@
 
-try: file_object  = open('C:\\Users\\MechTech3959\\New folder (2)\\edu\\python\\numbers.txt','r')
+try: file_object  = open('C:\\Users\\deket\\Desktop\\python\\edu\\python\\edu\\qtrsales.txt','r')
 except FileNotFoundError:
     print("could not find file")
 else:

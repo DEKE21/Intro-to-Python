@@ -2,21 +2,27 @@ import pygame
 import random
 
 pygame.init()
+#width & height
 w, h = 500, 500
-S = 20
+#size of the player and target
+S = 10
+#movement speed
 vel = 2
+#declarations for scoreboard
 spacePressed = 0
 spaceHit = 0
 font = pygame.font.Font('freesansbold.ttf', 12)
+#play square class 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((S, S))
         self.image.fill((0, 0, 255))
         self.rect = self.image.get_rect()
-
+    #function to move the player
     def update(self):
         keys = pygame.key.get_pressed()
+        #set up quicker movement while holding shift 
         if keys[pygame.K_LSHIFT]:
             vel = 5
         else:
@@ -29,48 +35,53 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= vel
         if keys[pygame.K_DOWN]:
             self.rect.y += vel
-
-class Block(pygame.sprite.Sprite):
+#target class
+class Target(pygame.sprite.Sprite):
+    #self and sprite init
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((S, S))
         self.image.fill((255, 0, 0))
         self.rect = self.image.get_rect()
-
+    #random location 
     def move_random(self):
         self.rect.x = random.randint(0, 500 - S)
         self.rect.y = random.randint(0, 500 - S)
 
-# Create the game window
+# Create window and background color
 screen = pygame.display.set_mode((500, 500))
 screen.fill('black')
 
-# Create the player and block
+# Creation of player and block
 player = Player()
-block = Block()
-block.move_random()
+target = Target()
+#random cords function 
+target.move_random()
 
 # Game loop
 running = True
 while running:
-    # Event loop
+    # Event loop to quit game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        #elif condition to count space presses
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 spacePressed +=1
-                if player.rect.colliderect(block.rect):
+                #if statement is used to log successful hits and new position for the target
+                if player.rect.colliderect(target.rect):
                     spaceHit +=1
-                    block.move_random()
+                    target.move_random()
 
-    # Update the player
+    # Update player for accurate responces 
+    player.update()
+    #init of scoreboard 
     acc  = 0
     if spacePressed >0:
         acc = spaceHit/spacePressed 
         acc = acc*100 
         acc = "{:.2f}".format(acc)
-    player.update()
     pressesTxt = font.render(f'pressed: {spacePressed}', True,"white")
     hitTxt = font.render(f'hit count: {spaceHit}',True,"white")
     accTxt = font.render(f'hit accuracy {acc}%',True,"white")
@@ -83,19 +94,22 @@ while running:
 
 
 
-    # Draw everything
+    # refreshs screen as black
     screen.fill('black')
+    #player square
     screen.blit(player.image, player.rect)
-    screen.blit(block.image, block.rect)
+    #target square
+    screen.blit(target.image, target.rect)
+    #scoreboard
     screen.blit(pressesTxt, pressesRect)
     screen.blit(hitTxt,hitRect)
     screen.blit(accTxt, accRect)
     
 
-    # Flip the display
+    # Flip the display to display blits 
     pygame.display.flip()
 
-    # Cap the frame rate
+    #frame rate limits
     pygame.time.Clock().tick(60)
 
 pygame.quit()
